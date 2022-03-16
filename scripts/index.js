@@ -2,7 +2,7 @@ let url = "https://masai-food-api.herokuapp.com/api/meals/india"
 
 
 
-async function showFood()
+async function showFood(event)
 {
     try {
         
@@ -25,25 +25,21 @@ function appendFood(data)
     console.log(data)
 
     document.querySelector("#menu").innerHTML = "";
-    for (let i = 0; i < data.length; i++) 
-    {
-
-        console.log(data)
-
+    data.map(function(ele){
 
         let divM = document.createElement("div")
 
         let img = document.createElement("img")
-        img.src = data[i].strMealThumb
+        img.src = ele.strMealThumb
         img.setAttribute("id","img")
    
 
         let name = document.createElement("p")
-        name.innerText = data[i].strMeal
+        name.innerText = ele.strMeal
         
 
          let price = document.createElement("p")
-        price.innerText = data[i].price
+        price.innerText = ele.price
         
 
 
@@ -52,25 +48,23 @@ function appendFood(data)
         button.setAttribute("id","addtocart")
         button.addEventListener("click", function(){
 
-            addtocart(data[i])
-            window.location.href = "cart.html"
+            addtocart(ele)
+            
         })
-
-
         divM.append(img,name,price,button)
 
         document.querySelector("#menu").append(divM)
-
-    }
-
-
-
+    })
+ 
 }
-let cartarr = [];
-function addtocart(data)
+
+function addtocart(ele)
 {
-    console.log(data)
-    cartarr.push(data)
+    let cartarr = JSON.parse(localStorage.getItem("cart")) || []
+    console.log(ele)
+    cartarr.push(ele)
     console.log(cartarr)
     localStorage.setItem("cart",JSON.stringify(cartarr))
 }
+
+

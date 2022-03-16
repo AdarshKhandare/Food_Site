@@ -1,9 +1,10 @@
-let cartitems = JSON.parse(localStorage.getItem('cart')) || []
+let cartitems = JSON.parse(localStorage.getItem('cart'))
 console.log(cartitems)
 
 function showcart(cartitems) {
 
-    cartitems.forEach(function(ele){
+    document.querySelector("#cart").innerHTML = "";
+    cartitems.map(function(ele,index){
 
         let divM = document.createElement("div")
 
@@ -34,10 +35,24 @@ function showcart(cartitems) {
 
     })
 }
-showcart(cartitems)
-let removearr = []
+
+
+
+// let removearr = []
 function removetocart(ele){
     console.log(ele)
-    removearr.push(ele)
+    pop()
+ 
+    JSON.parse(localStorage.removeItem("cart")) || [];
+
 
 }
+// total update
+let total = cartitems.reduce(function(acc,ele){
+
+    return acc + ele.price
+},0)
+
+document.querySelector("#total-price").innerText = total;
+
+showcart(cartitems)
