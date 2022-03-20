@@ -24,7 +24,7 @@ function showcart(cartitems) {
         button.innerText = "Remove"
         button.addEventListener("click", function(){
 
-            removetocart(ele)
+            removeItemFromCart(index)
             
         })
 
@@ -38,21 +38,36 @@ function showcart(cartitems) {
 
 
 
-// let removearr = []
-function removetocart(ele){
-    console.log(ele)
-    pop()
- 
-    JSON.parse(localStorage.removeItem("cart")) || [];
+// Remove Item From Cart start here
 
+function removeItemFromCart(index){
+    cartitems.splice(index, 1);
 
+    console.log(cartitems);
+    showcart(cartitems);
+
+    // showCartsTotalItems(cartDataDB);
+
+    localStorage.setItem("cartitems", JSON.stringify(cartitems));
+
+    showTotal(cartitems)
 }
+
+//Remove Item From Cart end here
+
+
+
+
 // total update
-let total = cartitems.reduce(function(acc,ele){
+function showTotal(cartitems){
 
-    return acc + ele.price
-},0)
+    let total = cartitems.reduce(function(acc,ele){
 
-document.querySelector("#total-price").innerText = total;
+        return acc + ele.price
+    },0)
 
-showcart(cartitems)
+    document.querySelector("#total-price").innerText = total;
+
+    showcart(cartitems)
+}
+showTotal(cartitems)

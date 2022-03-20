@@ -25,7 +25,7 @@ function appendFood(data)
     console.log(data)
 
     document.querySelector("#menu").innerHTML = "";
-    data.map(function(ele){
+    data.map(function(ele,index,array){
 
         let divM = document.createElement("div")
 
@@ -49,6 +49,8 @@ function appendFood(data)
         button.addEventListener("click", function(){
 
             addtocart(ele)
+            showCartsTotalItems(data)
+
             
         })
         divM.append(img,name,price,button)
@@ -67,4 +69,14 @@ function addtocart(ele)
     localStorage.setItem("cart",JSON.stringify(cartarr))
 }
 
-
+function showCartsTotalItems(meals){
+    var count = meals.length;
+    console.log(count);
+    if(count==0){
+        
+        document.querySelector("#count").innerText = "Empty!";
+    }
+    else{
+        document.querySelector("#count").innerText = count;
+    }
+}
